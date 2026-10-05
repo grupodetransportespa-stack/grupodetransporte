@@ -227,11 +227,20 @@ footer img{width:100%;max-width:400px;height:auto}
 </div>
 </div>
 <div style="flex:1 1 460px;min-width:0">
-<img src="cyber-day-inicio.png" alt="Cyber Day - Inicio" style="width:100%;border-radius:14px;border:1px solid #3A3020">
+<div class="cyber-slider">
+<div class="cyber-slides">
+<div class="cyber-slide active">
+<img src="cyber-day-wsp.png" alt="Cyber Day - Inicio" style="width:100%;border-radius:14px;border:1px solid #3A3020">
+</div>
+<div class="cyber-slide">
+<img src="cyber-day-avalancha.png" alt="Cyber Day - Avalancha" style="width:100%;border-radius:14px;border:1px solid #3A3020">
 </div>
 </div>
-<div class="cyber-banner">
-<img src="cyber-day-avalancha.png" alt="Cyber Day - Avalancha de paquetes" style="width:100%;height:auto">
+<div class="cyber-dots">
+<span class="cyber-dot active" onclick="currentCyberSlide(1)"></span>
+<span class="cyber-dot" onclick="currentCyberSlide(2)"></span>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -632,6 +641,64 @@ Escribir por WhatsApp
     height:40px;
   }
 }
+
+/* Estilos Slider Cyber Day */
+.cyber-slider{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-radius:14px;
+}
+
+.cyber-slides{
+  display:flex;
+  transition:transform 0.8s ease-in-out;
+  width:100%;
+}
+
+.cyber-slide{
+  min-width:100%;
+  display:none;
+  opacity:0;
+  transition:opacity 0.8s ease-in-out;
+}
+
+.cyber-slide.active{
+  display:block;
+  opacity:1;
+}
+
+.cyber-dots{
+  position:absolute;
+  bottom:15px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+  z-index:10;
+}
+
+.cyber-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(226,181,74,0.5);
+  cursor:pointer;
+  transition:all 0.3s;
+  border:1px solid #E2B54A;
+}
+
+.cyber-dot.active{
+  background:#E2B54A;
+  width:14px;
+  height:14px;
+  box-shadow:0 0 10px rgba(226,181,74,0.8);
+}
+
+.cyber-dot:hover{
+  background:#E2B54A;
+  transform:scale(1.2);
+}
 </style>
 
 <script>
@@ -715,6 +782,48 @@ function enviarPostulacion() {
   const mailtoLink = `mailto:contacto@grupodetransporte.cl?subject=${encodeURIComponent(asunto)}&body=${cuerpo}`;
   window.location.href = mailtoLink;
 }
+
+// Slider Automático Cyber Day
+let cyberSlideIndex = 1;
+let cyberSlideTimer;
+
+function currentCyberSlide(n) {
+  clearTimeout(cyberSlideTimer);
+  showCyberSlides(cyberSlideIndex = n);
+  cyberSlideTimer = setTimeout(nextCyberSlide, 3000);
+}
+
+function nextCyberSlide() {
+  showCyberSlides(++cyberSlideIndex);
+  cyberSlideTimer = setTimeout(nextCyberSlide, 3000);
+}
+
+function showCyberSlides(n) {
+  const slides = document.querySelectorAll('.cyber-slide');
+  const dots = document.querySelectorAll('.cyber-dot');
+  
+  if (n > slides.length) {
+    cyberSlideIndex = 1;
+  }
+  if (n < 1) {
+    cyberSlideIndex = slides.length;
+  }
+  
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+  
+  if (slides[cyberSlideIndex - 1]) {
+    slides[cyberSlideIndex - 1].classList.add('active');
+  }
+  if (dots[cyberSlideIndex - 1]) {
+    dots[cyberSlideIndex - 1].classList.add('active');
+  }
+}
+
+// Iniciar slider automático al cargar
+document.addEventListener('DOMContentLoaded', function() {
+  cyberSlideTimer = setTimeout(nextCyberSlide, 3000);
+});
 </script>
 
 </body>
