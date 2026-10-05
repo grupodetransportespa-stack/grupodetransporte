@@ -18,12 +18,13 @@
 body{font-family:'Montserrat','Helvetica Neue',sans-serif;color:#ECE6D8;background:#000;line-height:1.6}
 a{color:#E2B54A;text-decoration:none}a:hover{color:#F3D27A}
 header{background:#000;position:sticky;top:0;z-index:40;border-bottom:2px solid #E2B54A}
-.header-banner{background:#000;border-bottom:1px solid #2A2418;padding:16px 24px}
-.banner-content{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.header-banner{background:#000;border-bottom:1px solid #2A2418;padding:12px 24px}
+.banner-content{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;width:100%}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 header img{height:50px;width:auto}
-nav{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;font-size:14px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;padding:12px 24px;max-width:1180px;margin:0 auto;background:#000;border-bottom:1px solid #2A2418}
-nav a{color:#ECE6D8}
+nav#navDesktop a{color:#ECE6D8;transition:color 0.3s}
+nav#navDesktop a:hover{color:#F3D27A}
+nav.nav-mobile{display:none}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
 .hamburger span{width:24px;height:2px;background:#E2B54A;display:block}
 .nav-mobile{display:none;position:absolute;top:70px;left:0;right:0;background:#1A150B;flex-direction:column;gap:16px;padding:20px 24px;border-bottom:1px solid #2A2418}
@@ -102,15 +103,16 @@ footer img{width:100%;max-width:400px;height:auto}
   nav{gap:6px 14px;font-size:12px}
 }
 
-/* MÓVIL MEJORADO */
+/* TABLET Y MÓVIL */
 @media(max-width:768px){
-  .banner-content{padding:12px 0;gap:12px}
-  .banner-content h1{font-size:22px}
-  .banner-content p{font-size:11px}
-  header img{height:75px}
+  .banner-content{gap:10px}
+  .banner-content h1{font-size:18px}
+  .banner-content p{font-size:9px}
+  header img{height:60px}
   
-  nav{display:none}
-  .hamburger{display:flex}
+  nav#navDesktop{display:none !important}
+  .nav-mobile{display:flex !important}
+  .hamburger{display:flex !important}
   
   h1{font-size:clamp(40px,8vw,56px)}
   h2{font-size:32px}
@@ -144,10 +146,10 @@ footer img{width:100%;max-width:400px;height:auto}
 }
 
 @media(max-width:480px){
-  .banner-content{padding:10px 0;gap:12px}
-  .banner-content h1{font-size:20px}
-  .banner-content p{font-size:10px}
-  header img{height:70px}
+  .banner-content{gap:10px}
+  .banner-content h1{font-size:18px}
+  .banner-content p{font-size:9px}
+  header img{height:60px}
   
   h1{font-size:clamp(36px,7vw,48px)}
   h2{font-size:28px}
@@ -178,13 +180,22 @@ footer img{width:100%;max-width:400px;height:auto}
 <header>
 <div class="header-banner">
 <div class="banner-content">
-<a href="#inicio" style="display:flex;align-items:center;gap:20px;flex:1">
-<img src="logo-gdt.png" alt="GDT Logo" style="height:90px;width:auto">
-<div style="display:flex;flex-direction:column;gap:4px">
-<h1 style="margin:0;font-size:26px;font-weight:800;color:#E2B54A;font-family:'Saira',sans-serif;letter-spacing:0.05em">GRUPO DE TRANSPORTE</h1>
-<p style="margin:0;font-size:12px;font-weight:600;color:#B8B0A0;letter-spacing:0.1em;text-transform:uppercase">Logística que avanza</p>
+<a href="#inicio" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+<img src="logo-gdt.png" alt="GDT Logo" style="height:70px;width:auto">
+<div style="display:flex;flex-direction:column;gap:1px;flex-shrink:0">
+<h1 style="margin:0;font-size:20px;font-weight:800;color:#E2B54A;font-family:'Saira',sans-serif;letter-spacing:0.03em;line-height:1">GRUPO DE TRANSPORTE</h1>
+<p style="margin:0;font-size:10px;font-weight:600;color:#B8B0A0;letter-spacing:0.08em;text-transform:uppercase;line-height:1">Logística que avanza</p>
 </div>
 </a>
+
+<nav id="navDesktop" style="display:flex;gap:20px;align-items:center;margin-left:auto;margin-right:0">
+<a href="#por-que-nosotros" style="font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#ECE6D8">Por qué nosotros</a>
+<a href="#clientes" style="font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#ECE6D8">Clientes</a>
+<a href="#servicios" style="font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#ECE6D8">Servicios</a>
+<a href="#trabaja-aqui" style="font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:#ECE6D8">Trabaja aquí</a>
+<a href="#contacto" class="btn-primary" style="padding:10px 18px;font-size:12px">Cotizar</a>
+</nav>
+
 <button class="hamburger" id="menuToggle">
 <span></span>
 <span></span>
@@ -192,14 +203,6 @@ footer img{width:100%;max-width:400px;height:auto}
 </button>
 </div>
 </div>
-
-<nav id="navDesktop">
-<a href="#por-que-nosotros">Por qué nosotros</a>
-<a href="#clientes">Clientes</a>
-<a href="#servicios">Servicios</a>
-<a href="#trabaja-aqui">Trabaja aquí</a>
-<a href="#contacto" class="btn-primary">Cotizar</a>
-</nav>
 
 <nav class="nav-mobile" id="navMobile">
 <a href="#por-que-nosotros">Por qué nosotros</a>
