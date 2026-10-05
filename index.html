@@ -48,6 +48,8 @@ h3{font-size:20px;font-weight:600;color:#FFF;margin:16px 0 8px}
 .slider-controls{display:flex;gap:12px;align-items:center;justify-content:center}
 .pulse{width:8px;height:8px;background:#E2B54A;border-radius:50%;display:inline-block;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.slider-dot{width:12px;height:12px;background:#4A3F2A;border-radius:50%;cursor:pointer;transition:all 0.3s;border:2px solid transparent}
+.slider-dot.active{background:#E2B54A;border-color:#E2B54A;width:14px;height:14px}
 #servicios{padding:88px 24px}
 .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
 #como-funciona{padding:88px 24px;background:#0D0B07;border-top:1px solid #2A2418;border-bottom:1px solid #2A2418}
@@ -233,15 +235,21 @@ footer img{width:100%;max-width:400px;height:auto}
 <p style="margin:0 0 8px;font-size:14px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#CFC8B8">Confían en nosotros</p>
 <h2>Nuestros clientes</h2>
 <div class="slider-container">
-<div class="slider-image">
-<img src="logo-chilexpress.jpeg" alt="Chilexpress" style="max-height:120px">
-<img src="logo-99minutos.png" alt="99 Minutos" style="max-height:120px">
-<img src="logo-mercadolibre.webp" alt="Mercado Libre" style="max-height:120px">
-<img src="logo-correos.png" alt="Correos Chile" style="max-height:120px">
-<img src="logo-starken.png" alt="Starken" style="max-height:120px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:20px">
+<button id="sliderPrev" style="background:none;border:none;color:#E2B54A;font-size:32px;cursor:pointer;padding:8px">←</button>
+<div class="slider-image" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:150px;position:relative;overflow:hidden">
+<img id="sliderImg" src="logo-chilexpress.png" alt="Cliente" style="max-height:120px;max-width:100%;object-fit:contain;transition:opacity 0.5s ease">
 </div>
-<div class="slider-controls">
-<div class="pulse"></div>
+<button id="sliderNext" style="background:none;border:none;color:#E2B54A;font-size:32px;cursor:pointer;padding:8px">→</button>
+</div>
+<div class="slider-controls" style="margin-top:24px">
+<div style="display:flex;gap:10px;justify-content:center;margin-bottom:16px">
+<div id="dot0" class="slider-dot active" onclick="showSlide(0)"></div>
+<div id="dot1" class="slider-dot" onclick="showSlide(1)"></div>
+<div id="dot2" class="slider-dot" onclick="showSlide(2)"></div>
+<div id="dot3" class="slider-dot" onclick="showSlide(3)"></div>
+<div id="dot4" class="slider-dot" onclick="showSlide(4)"></div>
+</div>
 <div style="font-size:14px;font-weight:600;color:#B8B0A0">Empresas líderes confían en nosotros</div>
 </div>
 </div>
@@ -447,6 +455,57 @@ footer img{width:100%;max-width:400px;height:auto}
 </footer>
 
 <script>
+// SLIDER DE CLIENTES
+const logos = [
+  { src: 'logo-chilexpress.png', alt: 'Chilexpress' },
+  { src: 'logo-99minutos.png', alt: '99 Minutos' },
+  { src: 'logo-mercadolibre.png', alt: 'Mercado Libre' },
+  { src: 'logo-correos.png', alt: 'Correos Chile' },
+  { src: 'logo-starken.png', alt: 'Starken' }
+];
+
+let currentSlide = 0;
+let sliderInterval;
+
+function showSlide(index) {
+  currentSlide = index;
+  const sliderImg = document.getElementById('sliderImg');
+  sliderImg.style.opacity = '0.5';
+  setTimeout(() => {
+    sliderImg.src = logos[index].src;
+    sliderImg.alt = logos[index].alt;
+    sliderImg.style.opacity = '1';
+  }, 250);
+  
+  // Actualizar dots
+  document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+  
+  // Resetear intervalo
+  clearInterval(sliderInterval);
+  startSliderAutoPlay();
+}
+
+function nextSlide() {
+  showSlide((currentSlide + 1) % logos.length);
+}
+
+function prevSlide() {
+  showSlide((currentSlide - 1 + logos.length) % logos.length);
+}
+
+function startSliderAutoPlay() {
+  sliderInterval = setInterval(nextSlide, 5000);
+}
+
+// Event listeners para botones
+document.getElementById('sliderNext').addEventListener('click', nextSlide);
+document.getElementById('sliderPrev').addEventListener('click', prevSlide);
+
+// Iniciar autoplay
+startSliderAutoPlay();
+
 // Menú hamburguesa
 const menuToggle = document.getElementById('menuToggle');
 const navMobile = document.getElementById('navMobile');
