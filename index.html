@@ -472,6 +472,64 @@ footer img{width:100%;max-width:400px;height:auto}
 <a href="https://www.google.com/maps/search/?api=1&query=Los+Militares+4611+Las+Condes+Chile" class="contact-item">
 <span>📍</span> Los Militares 4611, Las Condes, Chile
 </a>
+<div style="margin-top:24px">
+<a href="https://wa.me/56938762271?text=Hola%20Grupo%20de%20Transporte%2C%20quisiera%20conocer%20m%C3%A1s%20sobre%20sus%20servicios%20de%20log%C3%ADstica" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+<img src="whatsapp-neon.png" alt="WhatsApp" class="whatsapp-btn-logo">
+Escribir por WhatsApp
+</a>
+</div>
+
+<style>
+.whatsapp-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#000;
+  color:#25D366;
+  padding:14px 24px;
+  border:2px solid #25D366;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:0 0 20px rgba(37,211,102,0.4), inset 0 0 20px rgba(37,211,102,0.1);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+
+.whatsapp-btn-logo{
+  width:18px;
+  height:18px;
+  flex-shrink:0;
+}
+
+.whatsapp-btn::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:rgba(37,211,102,0.1);
+  transition:left 0.4s;
+  z-index:-1;
+}
+
+.whatsapp-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(37,211,102,0.7), inset 0 0 30px rgba(37,211,102,0.2);
+  border-color:#4DD474;
+  color:#4DD474;
+}
+
+.whatsapp-btn:hover::before{
+  left:0;
+}
+</style>
 </div>
 <div class="contacto-right">
 <label>Nombre o empresa<input type="text"></label>
@@ -496,6 +554,85 @@ footer img{width:100%;max-width:400px;height:auto}
 </div>
 <p class="footer-text">© 2026 Grupo de Transporte SpA • Logística que avanza</p>
 </footer>
+
+<!-- Botón flotante de WhatsApp - Neon Moderno -->
+<a href="https://wa.me/56938762271?text=Hola%20Grupo%20de%20Transporte%2C%20quisiera%20conocer%20m%C3%A1s%20sobre%20sus%20servicios%20de%20log%C3%ADstica" target="_blank" rel="noopener noreferrer" class="whatsapp-flotante">
+<img src="whatsapp-neon.png" alt="WhatsApp" class="whatsapp-logo-flotante">
+</a>
+
+<style>
+.whatsapp-flotante{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:70px;
+  height:70px;
+  background:#000;
+  border:2px solid #25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+  cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration:none;
+  color:#25D366;
+  box-shadow:0 0 20px rgba(37,211,102,0.5), inset 0 0 20px rgba(37,211,102,0.2);
+  animation:neon-pulse 2s ease-in-out infinite;
+}
+
+.whatsapp-logo-flotante{
+  width:50px;
+  height:50px;
+  flex-shrink:0;
+}
+
+.whatsapp-flotante:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 30px rgba(37,211,102,0.8), inset 0 0 30px rgba(37,211,102,0.4);
+  border-color:#4DD474;
+  background:rgba(37,211,102,0.1);
+}
+
+@keyframes neon-pulse{
+  0%, 100%{
+    box-shadow:0 0 20px rgba(37,211,102,0.5), inset 0 0 20px rgba(37,211,102,0.2);
+  }
+  50%{
+    box-shadow:0 0 30px rgba(37,211,102,0.8), inset 0 0 30px rgba(37,211,102,0.4);
+  }
+}
+
+@media(max-width:768px){
+  .whatsapp-flotante{
+    width:65px;
+    height:65px;
+    bottom:16px;
+    right:16px;
+  }
+  
+  .whatsapp-logo-flotante{
+    width:46px;
+    height:46px;
+  }
+}
+
+@media(max-width:480px){
+  .whatsapp-flotante{
+    width:60px;
+    height:60px;
+    bottom:16px;
+    right:16px;
+    box-shadow:0 0 15px rgba(37,211,102,0.6), inset 0 0 15px rgba(37,211,102,0.3);
+  }
+  
+  .whatsapp-logo-flotante{
+    width:40px;
+    height:40px;
+  }
+}
+</style>
 
 <script>
 // SLIDER DE CLIENTES - AUTOPLAY AUTOMÁTICO
