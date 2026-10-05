@@ -42,6 +42,8 @@ h3{font-size:20px;font-weight:600;color:#FFF;margin:16px 0 8px}
 .kpi-label{text-align:center;margin-top:20px;font-size:18px;color:#ECE6D8;font-weight:600}
 #clientes{padding:88px 24px}
 .slider-container{background:#0F0D09;border:1px solid #3A3020;border-radius:14px;padding:48px 32px;display:flex;flex-direction:column;gap:24px;overflow:hidden}
+.slider-container-full{width:100%;background:linear-gradient(180deg,#0D0B07 0%,#000 100%);border-top:1px solid #2A2418;border-bottom:1px solid #2A2418;padding:48px 24px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.slider-image-full{width:100%;display:flex;align-items:center;justify-content:center;min-height:200px}
 .slider-image{display:flex;align-items:center;justify-content:center;min-height:150px;overflow:hidden;position:relative;gap:30px;flex-wrap:wrap}
 .slider-image img{max-height:120px;object-fit:contain;display:block;filter:grayscale(0%);transition:all 0.3s;opacity:0.8}
 .slider-image img:hover{opacity:1}
@@ -230,28 +232,20 @@ footer img{width:100%;max-width:400px;height:auto}
 </div>
 </section>
 
-<section id="clientes">
-<div class="container">
-<p style="margin:0 0 8px;font-size:14px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#CFC8B8">Confían en nosotros</p>
-<h2>Nuestros clientes</h2>
-<div class="slider-container">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:20px">
-<button id="sliderPrev" style="background:none;border:none;color:#E2B54A;font-size:32px;cursor:pointer;padding:8px">←</button>
-<div class="slider-image" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:150px;position:relative;overflow:hidden">
-<img id="sliderImg" src="logo-chilexpress.png" alt="Cliente" style="max-height:120px;max-width:100%;object-fit:contain;transition:opacity 0.5s ease">
+<section id="clientes" style="padding:88px 0">
+<div class="slider-container-full">
+<div class="slider-image-full">
+<img id="sliderImg" src="logo-chilexpress.png" alt="Cliente" style="max-height:140px;max-width:90%;object-fit:contain;transition:opacity 0.8s ease">
 </div>
-<button id="sliderNext" style="background:none;border:none;color:#E2B54A;font-size:32px;cursor:pointer;padding:8px">→</button>
+<div style="text-align:center;padding:32px 24px">
+<div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px">
+<div id="dot0" class="slider-dot active"></div>
+<div id="dot1" class="slider-dot"></div>
+<div id="dot2" class="slider-dot"></div>
+<div id="dot3" class="slider-dot"></div>
+<div id="dot4" class="slider-dot"></div>
 </div>
-<div class="slider-controls" style="margin-top:24px">
-<div style="display:flex;gap:10px;justify-content:center;margin-bottom:16px">
-<div id="dot0" class="slider-dot active" onclick="showSlide(0)"></div>
-<div id="dot1" class="slider-dot" onclick="showSlide(1)"></div>
-<div id="dot2" class="slider-dot" onclick="showSlide(2)"></div>
-<div id="dot3" class="slider-dot" onclick="showSlide(3)"></div>
-<div id="dot4" class="slider-dot" onclick="showSlide(4)"></div>
-</div>
-<div style="font-size:14px;font-weight:600;color:#B8B0A0">Empresas líderes confían en nosotros</div>
-</div>
+<p style="font-size:18px;font-weight:600;color:#B8B0A0;margin:0">Empresas líderes confían en nosotros</p>
 </div>
 </div>
 </section>
@@ -455,7 +449,7 @@ footer img{width:100%;max-width:400px;height:auto}
 </footer>
 
 <script>
-// SLIDER DE CLIENTES
+// SLIDER DE CLIENTES - AUTOPLAY AUTOMÁTICO
 const logos = [
   { src: 'logo-chilexpress.png', alt: 'Chilexpress' },
   { src: 'logo-99minutos.png', alt: '99 Minutos' },
@@ -465,46 +459,27 @@ const logos = [
 ];
 
 let currentSlide = 0;
-let sliderInterval;
 
-function showSlide(index) {
-  currentSlide = index;
+function updateSlide() {
   const sliderImg = document.getElementById('sliderImg');
-  sliderImg.style.opacity = '0.5';
+  sliderImg.style.opacity = '0.6';
   setTimeout(() => {
-    sliderImg.src = logos[index].src;
-    sliderImg.alt = logos[index].alt;
+    sliderImg.src = logos[currentSlide].src;
+    sliderImg.alt = logos[currentSlide].alt;
     sliderImg.style.opacity = '1';
-  }, 250);
+  }, 400);
   
   // Actualizar dots
   document.querySelectorAll('.slider-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
+    dot.classList.toggle('active', i === currentSlide);
   });
   
-  // Resetear intervalo
-  clearInterval(sliderInterval);
-  startSliderAutoPlay();
+  // Siguiente slide
+  currentSlide = (currentSlide + 1) % logos.length;
 }
 
-function nextSlide() {
-  showSlide((currentSlide + 1) % logos.length);
-}
-
-function prevSlide() {
-  showSlide((currentSlide - 1 + logos.length) % logos.length);
-}
-
-function startSliderAutoPlay() {
-  sliderInterval = setInterval(nextSlide, 5000);
-}
-
-// Event listeners para botones
-document.getElementById('sliderNext').addEventListener('click', nextSlide);
-document.getElementById('sliderPrev').addEventListener('click', prevSlide);
-
-// Iniciar autoplay
-startSliderAutoPlay();
+// Cambiar logo cada 5 segundos
+setInterval(updateSlide, 5000);
 
 // Menú hamburguesa
 const menuToggle = document.getElementById('menuToggle');
